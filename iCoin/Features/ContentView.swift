@@ -9,13 +9,19 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        NavigationStack {
+            VStack(spacing: 10) {
+                CoinHeaderView(viewModel: CoinViewModel())
+            }
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button("refresh", systemImage: "arrow.clockwise") {
+                        NotificationCenter.default.post(name: .onRefreshData, object: nil)
+                    }
+                }
+            }
+            .background(Color(uiColor: .systemGroupedBackground))
         }
-        .padding()
     }
 }
 
