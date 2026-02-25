@@ -1,5 +1,5 @@
 //
-//  CoinDisplayData.swift
+//  CoinDTO.swift
 //  iCoin
 //
 //  Created by Momeks on 25.02.26.
@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct CoinDisplayData {
+struct CoinDTO {
     let name: String
     let symbol: String
     let imageUrl: URL?
@@ -19,9 +19,9 @@ struct CoinDisplayData {
 }
 
 #if DEBUG
-extension CoinDisplayData {
-    static var sample: CoinDisplayData {
-        CoinDisplayData(
+extension CoinDTO {
+    static var sample: CoinDTO {
+        CoinDTO(
             name: "Bitcoin",
             symbol: "BTC",
             imageUrl: URL(string: "https://assets.coingecko.com/coins/images/1/small/bitcoin.png"),

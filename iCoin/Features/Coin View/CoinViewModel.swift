@@ -20,7 +20,7 @@ class CoinViewModel: CoinViewModelProtocol {
     enum ViewState {
         case idle
         case loading
-        case success(CoinDisplayData)
+        case success(CoinDTO)
         case failure(String)
     }
     
@@ -68,7 +68,7 @@ class CoinViewModel: CoinViewModelProtocol {
                 
                 try Task.checkCancellation()
                 
-                state = .success(makeDisplayData(from: coin))
+                state = .success(mapToViewData(from: coin))
             } catch is CancellationError {
                 return
             } catch let error as NetworkError {
@@ -84,8 +84,8 @@ class CoinViewModel: CoinViewModelProtocol {
         currentTask = nil
     }
     
-    private func makeDisplayData(from coin: Coin) -> CoinDisplayData {
-        return CoinDisplayData(
+    private func mapToViewData(from coin: Coin) -> CoinDTO {
+        return CoinDTO(
             name: coin.name,
             symbol: coin.symbol.uppercased(),
             imageUrl: URL(string: coin.image.large),
