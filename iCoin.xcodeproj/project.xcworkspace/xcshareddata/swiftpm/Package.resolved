@@ -1,0 +1,15 @@
+{
+  "originHash" : "2b1523566405a5ff97f4e70ed85b093fcb1a5fb7311940dcafab07ccde8d8eb5",
+  "pins" : [
+    {
+      "identity" : "networkkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Momeks/NetworkKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "802ab7ef38caf757d2e0c88d88d546efe16e399b"
+      }
+    }
+  ],
+  "version" : 3
+}
