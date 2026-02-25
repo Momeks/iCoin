@@ -15,7 +15,7 @@ protocol EndpointProvider {
 class CoinGeckoEndpointProvider: EndpointProvider {
     private let apiKey: String
 
-    init(apiKey: String = APIKeyProvider.shared.coinGeckoAPIKey) {
+    init(apiKey: String = AppConfigs.coinGeckoAPIKey) {
         self.apiKey = apiKey
     }
 
