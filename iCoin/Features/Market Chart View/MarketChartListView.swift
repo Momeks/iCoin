@@ -20,28 +20,33 @@ struct MarketChartListView<ViewModel: MarketChartProtocol>: View {
                 MarketChartLoadingView()
                 
             case .success(let chartDataList):
-                Section {
-                    List {
-                        ForEach(chartDataList) { data in
-                            NavigationLink(destination: EmptyView()) {
-                                VStack(alignment: .leading, spacing: 5) {
-                                    Text(data.dateText)
-                                        .bold()
-                                        .foregroundStyle(.secondary)
-                                    Text(data.priceText)
-                                        .bold()
-                                }
+                ForEach(chartDataList) { data in
+                    NavigationLink(destination: Text(data.id.description)) {
+                        HStack {
+                            VStack(alignment: .leading) {
+                                Text(data.dateText)
+                                    .bold()
+                                    .foregroundStyle(.secondary)
+
+                                Text(data.priceText)
+                                    .bold()
+
+                                Divider()
                             }
+
+                            Spacer()
+
+                            Image(systemName: "chevron.right")
+                                .foregroundStyle(.tertiary)
+                                .imageScale(.small)
                         }
-                    }
-                    .listStyle(.insetGrouped)
-                } header: {
-                    Label("Last 14 Days", systemImage: "calendar")
-                        .fontWeight(.medium)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.horizontal)
+                        .padding(.vertical, 6)
+                        .contentShape(Rectangle())
+                    }
+                    .buttonStyle(.plain)
                 }
-                
             case .failure(let errorMessage):
                 ErrorView(errorMessage: errorMessage)
             }
@@ -53,5 +58,7 @@ struct MarketChartListView<ViewModel: MarketChartProtocol>: View {
 }
 
 #Preview {
-    MarketChartListView(viewModel: MarketChartViewModel())
+    ScrollView {
+        MarketChartListView(viewModel: MarketChartViewModel())
+    }
 }

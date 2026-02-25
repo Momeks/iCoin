@@ -10,8 +10,20 @@ import SwiftUI
 struct ContentView: View {
     var body: some View {
         NavigationStack {
-            VStack(spacing: 10) {
-                CoinHeaderView(viewModel: CoinViewModel())
+            ScrollView {
+                VStack(alignment:.leading, spacing: 10) {
+                    CoinHeaderView(viewModel: CoinViewModel())
+                    
+                    Divider()
+                        .padding(.horizontal)
+                    
+                    Label("Last 14 Days", systemImage: "calendar")
+                        .foregroundStyle(.blue)
+                        .bold()
+                        .padding(.horizontal)
+                    
+                    MarketChartListView(viewModel: MarketChartViewModel())
+                }
             }
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -20,7 +32,6 @@ struct ContentView: View {
                     }
                 }
             }
-            .background(Color(uiColor: .systemGroupedBackground))
         }
     }
 }
