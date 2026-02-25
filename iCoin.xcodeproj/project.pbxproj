@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7BF7DC892F4F697100F4E246 /* NetworkKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7BF7DC882F4F697100F4E246 /* NetworkKit */; };
+		7BF7DC8E2F4F69FC00F4E246 /* CoinKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7BF7DC8D2F4F69FC00F4E246 /* CoinKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -27,6 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7BF7DC8E2F4F69FC00F4E246 /* CoinKit in Frameworks */,
 				7BF7DC892F4F697100F4E246 /* NetworkKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -71,6 +73,7 @@
 			name = iCoin;
 			packageProductDependencies = (
 				7BF7DC882F4F697100F4E246 /* NetworkKit */,
+				7BF7DC8D2F4F69FC00F4E246 /* CoinKit */,
 			);
 			productName = iCoin;
 			productReference = 7BF7DBEA2F4F32EB00F4E246 /* iCoin.app */;
@@ -102,6 +105,7 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				7BF7DC872F4F697100F4E246 /* XCRemoteSwiftPackageReference "NetworkKit" */,
+				7BF7DC8C2F4F69FC00F4E246 /* XCRemoteSwiftPackageReference "CoinKit" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 7BF7DBEB2F4F32EB00F4E246 /* Products */;
@@ -359,6 +363,14 @@
 				kind = branch;
 			};
 		};
+		7BF7DC8C2F4F69FC00F4E246 /* XCRemoteSwiftPackageReference "CoinKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Momeks/CoinKit.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -366,6 +378,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 7BF7DC872F4F697100F4E246 /* XCRemoteSwiftPackageReference "NetworkKit" */;
 			productName = NetworkKit;
+		};
+		7BF7DC8D2F4F69FC00F4E246 /* CoinKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 7BF7DC8C2F4F69FC00F4E246 /* XCRemoteSwiftPackageReference "CoinKit" */;
+			productName = CoinKit;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

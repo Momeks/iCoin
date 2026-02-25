@@ -1,6 +1,15 @@
 {
-  "originHash" : "2b1523566405a5ff97f4e70ed85b093fcb1a5fb7311940dcafab07ccde8d8eb5",
+  "originHash" : "6e97e26f5fee74f5da9cc3932555a995c21144d520eb1c8b16ce4b7a730ea51e",
   "pins" : [
+    {
+      "identity" : "coinkit",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/Momeks/CoinKit.git",
+      "state" : {
+        "branch" : "main",
+        "revision" : "70ea575d004476ad75f350afeca127b2fbc343e3"
+      }
+    },
     {
       "identity" : "networkkit",
       "kind" : "remoteSourceControl",
