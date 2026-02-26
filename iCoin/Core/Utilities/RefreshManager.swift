@@ -11,9 +11,10 @@ import UIKit
 
 protocol RefreshPublisher {
     var refresh: AnyPublisher<Void, Never> { get }
+    func triggerRefresh()
 }
 
-class RefreshManager: ObservableObject, RefreshPublisher {
+final class RefreshManager: RefreshPublisher {
     static let shared = RefreshManager()
 
     private var timerSubscription: AnyCancellable?
@@ -23,7 +24,6 @@ class RefreshManager: ObservableObject, RefreshPublisher {
         refreshSubject.eraseToAnyPublisher()
     }
 
-    /// Call to trigger a manual refresh from toolbar
     func triggerRefresh() {
         refreshSubject.send(())
     }
@@ -33,7 +33,12 @@ class RefreshManager: ObservableObject, RefreshPublisher {
         startTimer()
     }
 
+    deinit {
+        NotificationCenter.default.removeObserver(self)
+    }
+
     private func startTimer() {
+        stopTimer()
         timerSubscription = Timer
             .publish(every: 60, on: .main, in: .common)
             .autoconnect()
@@ -46,7 +51,7 @@ class RefreshManager: ObservableObject, RefreshPublisher {
         timerSubscription?.cancel()
         timerSubscription = nil
     }
-    
+
     private func setupLifecycleObservers() {
         NotificationCenter.default.addObserver(
             self,
@@ -54,7 +59,6 @@ class RefreshManager: ObservableObject, RefreshPublisher {
             name: UIApplication.didEnterBackgroundNotification,
             object: nil
         )
-
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(appWillEnterForeground),
@@ -63,11 +67,6 @@ class RefreshManager: ObservableObject, RefreshPublisher {
         )
     }
 
-    @objc private func appDidEnterBackground() {
-        stopTimer()
-    }
-
-    @objc private func appWillEnterForeground() {
-        startTimer()
-    }
+    @objc private func appDidEnterBackground() { stopTimer() }
+    @objc private func appWillEnterForeground() { startTimer() }
 }
