@@ -19,11 +19,11 @@ enum Currency: String {
     var flag: String {
         switch self {
         case .usd:
-            return "🇺🇸"
+            return "united-states"
         case .euro:
-            return "🇪🇺"
+            return "european-union"
         case .pound:
-            return "🇬🇧"
+            return "united-kingdom"
         }
     }
     

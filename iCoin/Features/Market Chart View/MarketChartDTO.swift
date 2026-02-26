@@ -10,20 +10,20 @@ import CoinKit
 
 struct MarketChartDTO: Identifiable {
     let id = UUID()
-    let dateText: String
+    let date: Date
     let priceText: String
 }
 
 #if DEBUG
 extension MarketChartDTO {
     static let sample = MarketChartDTO(
-        dateText: "Apr 24, 2024",
+        date: Calendar.current.date(from: DateComponents(year: 2026, month: 2, day: 26)) ?? Date(),
         priceText: "$72,134.54"
     )
     
     static let sampleList: [MarketChartDTO] = HistoricalPrice.sampleList.map {
         MarketChartDTO(
-            dateText: $0.date.formatted(date: .abbreviated, time: .omitted),
+            date: $0.date,
             priceText: $0.price.formatted(.currency(code: AppConfigs.defaultCurrency.uppercased()))
         )
     }

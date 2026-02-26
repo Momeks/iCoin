@@ -86,7 +86,7 @@ class MarketChartViewModel: MarketChartProtocol {
     private func mapToViewData(from chart: MarketChart) -> [MarketChartDTO] {
         chart.toHistoricalPrices().map {
             MarketChartDTO(
-                dateText: $0.date.formatted(date: .abbreviated, time: .omitted),
+                date: $0.date,
                 priceText: $0.price.formatted(.currency(code: AppConfigs.defaultCurrency))
             )
         }

@@ -22,11 +22,11 @@ struct MarketChartListView<ViewModel: MarketChartProtocol>: View {
             case .success(let chartDataList):
                 ForEach(chartDataList) { data in
                     NavigationLink(destination: CoinDetailView(
-                        viewModel: HistoricalDataViewModel(date: data.dateText.toDate() ?? Date()))
+                        viewModel: HistoricalDataViewModel(date: data.date))
                     ) {
                         HStack {
                             VStack(alignment: .leading) {
-                                Text(data.dateText)
+                                Text(data.date.formatted(date: .abbreviated, time: .omitted))
                                     .bold()
                                     .foregroundStyle(.secondary)
 

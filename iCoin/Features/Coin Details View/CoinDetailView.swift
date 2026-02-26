@@ -41,8 +41,8 @@ struct CoinDetailView<ViewModel: HistoricalDataProtocol>: View {
                 }
             }
         }
-        .navigationTitle(viewModel.navigationTitle)
         .navigationBarTitleDisplayMode(.large)
-        .toolbarRole(.editor)
+        .navigationTitle(viewModel.navigationTitle)
+        .navigationSubtitle(AppConfigs.defaultCoin.capitalized)
     }
 }

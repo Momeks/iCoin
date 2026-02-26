@@ -51,7 +51,8 @@ class HistoricalDataViewModel: HistoricalDataProtocol {
         
         state = .loading
         
-        let endpoint = endpointProvider.endpoint(for: .historicalData(id: AppConfigs.defaultCoin, date: date.coinGeckoFormattedDate()))
+        let endpoint = endpointProvider.endpoint(for: .historicalData(id: AppConfigs.defaultCoin,
+                                                                      date: date.coinGeckoFormattedDate()))
         
         currentTask = Task {
             do {
