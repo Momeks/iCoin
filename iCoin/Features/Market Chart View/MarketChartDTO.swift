@@ -9,7 +9,7 @@ import Foundation
 import CoinKit
 
 struct MarketChartDTO: Identifiable {
-    let id = UUID()
+    var id: TimeInterval { date.timeIntervalSince1970 }
     let date: Date
     let priceText: String
 }

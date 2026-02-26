@@ -28,6 +28,7 @@ struct ContentView: View {
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
                     Button("refresh", systemImage: "arrow.clockwise") {
+                        RefreshManager.shared.triggerRefresh()
                         NotificationCenter.default.post(name: .onRefreshData, object: nil)
                     }
                 }

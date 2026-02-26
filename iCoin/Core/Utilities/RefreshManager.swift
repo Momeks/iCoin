@@ -23,6 +23,11 @@ class RefreshManager: ObservableObject, RefreshPublisher {
         refreshSubject.eraseToAnyPublisher()
     }
 
+    /// Call to trigger a manual refresh from toolbar
+    func triggerRefresh() {
+        refreshSubject.send(())
+    }
+
     private init() {
         setupLifecycleObservers()
         startTimer()

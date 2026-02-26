@@ -27,16 +27,13 @@ class MarketChartViewModel: MarketChartProtocol {
     
     @Published private(set) var state: ViewState = .idle
     private let networkService: NetworkService
-    private let currency: Currency
     private let endpointProvider: EndpointProvider
     private var currentTask: Task<Void, Never>?
     
     init(networkService: NetworkService = URLSessionNetworkService(),
-         endpointProvider: EndpointProvider = CoinGeckoEndpointProvider(),
-         currency: Currency = .euro) {
+         endpointProvider: EndpointProvider = CoinGeckoEndpointProvider()) {
         self.networkService = networkService
         self.endpointProvider = endpointProvider
-        self.currency = currency
         
         Task {
             await fetchMarketChartData()

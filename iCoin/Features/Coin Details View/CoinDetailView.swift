@@ -27,16 +27,14 @@ struct CoinDetailView<ViewModel: HistoricalDataProtocol>: View {
                 if displayData.pricesByCurrency.isEmpty {
                     ErrorView(errorMessage: "No price data available for this date.")
                 } else {
-                    NavigationStack {
-                        List {
-                            ForEach(viewModel.availableCurrencies, id: \.self) { currency in
-                                if let price = displayData.pricesByCurrency[currency] {
-                                    CurrencyView(currency: currency, price: price)
-                                }
+                    List {
+                        ForEach(viewModel.availableCurrencies, id: \.self) { currency in
+                            if let price = displayData.pricesByCurrency[currency] {
+                                CurrencyView(currency: currency, price: price)
                             }
                         }
-                        .listStyle(.plain)
                     }
+                    .listStyle(.plain)
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
             }
