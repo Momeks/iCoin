@@ -21,7 +21,9 @@ struct MarketChartListView<ViewModel: MarketChartProtocol>: View {
                 
             case .success(let chartDataList):
                 ForEach(chartDataList) { data in
-                    NavigationLink(destination: Text(data.id.description)) {
+                    NavigationLink(destination: CoinDetailView(
+                        viewModel: HistoricalDataViewModel(date: data.dateText.toDate() ?? Date()))
+                    ) {
                         HStack {
                             VStack(alignment: .leading) {
                                 Text(data.dateText)
