@@ -1,10 +1,9 @@
 //
-//  MarketChartProtocol.swift
+//  MarketChartViewModel.swift
 //  iCoin
 //
 //  Created by Momeks on 25.02.26.
 //
-
 
 import Foundation
 import CoinKit
@@ -13,8 +12,6 @@ import NetworkKit
 
 protocol MarketChartProtocol: ObservableObject {
     var state: MarketChartViewModel.ViewState { get }
-    func fetchMarketChartData() async
-    func refreshData()
 }
 
 class MarketChartViewModel: MarketChartProtocol {
@@ -24,41 +21,49 @@ class MarketChartViewModel: MarketChartProtocol {
         case success([MarketChartDTO])
         case failure(String)
     }
-    
+
     @Published private(set) var state: ViewState = .idle
-    private let networkService: NetworkService
-    private let endpointProvider: EndpointProvider
+    private let marketChartRepository: MarketChartRepositoryProtocol
+    private let refreshPublisher: RefreshPublisher
     private var currentTask: Task<Void, Never>?
-    
-    init(networkService: NetworkService = URLSessionNetworkService(),
-         endpointProvider: EndpointProvider = CoinGeckoEndpointProvider()) {
-        self.networkService = networkService
-        self.endpointProvider = endpointProvider
-        
+    private var cancellables: Set<AnyCancellable> = []
+
+    init(marketChartRepository: MarketChartRepositoryProtocol, refreshPublisher: RefreshPublisher) {
+        self.marketChartRepository = marketChartRepository
+        self.refreshPublisher = refreshPublisher
+
         Task {
             await fetchMarketChartData()
         }
+
+        refreshPublisher.refresh
+            .sink { [weak self] in
+                Task {
+                    await self?.fetchMarketChartData()
+                }
+            }
+            .store(in: &cancellables)
     }
-    
+
     @MainActor
     func fetchMarketChartData() async {
         cancelTask()
-        
+
         state = .loading
-        
-        let endpoint = endpointProvider.endpoint(for: .marketChart(id: AppConfigs.defaultCoin,
-                                                                   currency: AppConfigs.defaultCurrency,
-                                                                   days: "14"))
+
         currentTask = Task {
             do {
                 try Task.checkCancellation()
-                
-                let marketChart: MarketChart = try await networkService.fetch(from: endpoint)
-                
+
+                let marketChart = try await marketChartRepository.fetchMarketChart(
+                    coinId: AppConfigs.defaultCoin,
+                    currency: AppConfigs.defaultCurrency,
+                    days: "14"
+                )
+
                 try Task.checkCancellation()
-                
+
                 state = .success(mapToViewData(from: marketChart))
-                
             } catch is CancellationError {
                 return
             } catch let error as NetworkError {
@@ -68,18 +73,12 @@ class MarketChartViewModel: MarketChartProtocol {
             }
         }
     }
-    
-    func refreshData() {
-        Task {
-            await fetchMarketChartData()
-        }
-    }
-    
+
     private func cancelTask() {
         currentTask?.cancel()
         currentTask = nil
     }
-    
+
     private func mapToViewData(from chart: MarketChart) -> [MarketChartDTO] {
         chart.toHistoricalPrices().map {
             MarketChartDTO(

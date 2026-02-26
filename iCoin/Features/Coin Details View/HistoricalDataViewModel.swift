@@ -12,58 +12,54 @@ import NetworkKit
 
 protocol HistoricalDataProtocol: ObservableObject {
     var state: HistoricalDataViewModel.ViewState { get }
-    var navigationTitle: String { get }
     var availableCurrencies: [Currency] { get }
+    var navigationTitle: String { get }
     func fetchHistoricalData() async
 }
 
 class HistoricalDataViewModel: HistoricalDataProtocol {
     var date: Date
-    var navigationTitle: String { date.navigationTitleFormattedDate() }
     var availableCurrencies: [Currency] { [.euro, .usd, .pound] }
-    
+    var navigationTitle: String { date.formatted(date: .abbreviated, time: .omitted) }
+
     enum ViewState {
         case idle
         case loading
         case success(HistoricalDTO)
         case failure(String)
     }
-    
+
     @Published private(set) var state: ViewState = .idle
-    private let networkService: NetworkService
-    private let endpointProvider: EndpointProvider
+    private let historicalDataRepository: HistoricalDataRepositoryProtocol
     private var currentTask: Task<Void, Never>?
-    
-    init(networkService: NetworkService = URLSessionNetworkService(),
-         endpointProvider: EndpointProvider = CoinGeckoEndpointProvider(), date: Date) {
-        self.networkService = networkService
-        self.endpointProvider = endpointProvider
+
+    init(historicalDataRepository: HistoricalDataRepositoryProtocol, date: Date) {
+        self.historicalDataRepository = historicalDataRepository
         self.date = date
-        
+
         Task {
             await fetchHistoricalData()
         }
     }
-    
+
     @MainActor
     func fetchHistoricalData() async {
         cancelTask()
-        
+
         state = .loading
-        
-        let endpoint = endpointProvider.endpoint(for: .historicalData(id: AppConfigs.defaultCoin,
-                                                                      date: date.coinGeckoFormattedDate()))
-        
+
         currentTask = Task {
             do {
                 try Task.checkCancellation()
-                
-                let historicalData: HistoricalData = try await networkService.fetch(from: endpoint)
-                
+
+                let historicalData = try await historicalDataRepository.fetchHistoricalData(
+                    coinId: AppConfigs.defaultCoin,
+                    date: date.coinGeckoFormattedDate()
+                )
+
                 try Task.checkCancellation()
-                
+
                 state = .success(mapToViewData(from: historicalData))
-                
             } catch is CancellationError {
                 return
             } catch let error as NetworkError {
@@ -73,12 +69,12 @@ class HistoricalDataViewModel: HistoricalDataProtocol {
             }
         }
     }
-    
+
     private func cancelTask() {
         currentTask?.cancel()
         currentTask = nil
     }
-    
+
     private func mapToViewData(from data: HistoricalData) -> HistoricalDTO {
         let rawPrices = data.marketData?.currentPrice ?? [:]
 

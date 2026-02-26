@@ -7,8 +7,8 @@
 
 import SwiftUI
 
-struct CoinHeaderView<ViewModel: CoinViewModelProtocol>: View  {
-    @StateObject var viewModel: ViewModel
+struct CoinHeaderView<ViewModel: CoinViewModelProtocol>: View {
+    @ObservedObject var viewModel: ViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -64,5 +64,5 @@ struct CoinHeaderView<ViewModel: CoinViewModelProtocol>: View  {
 }
 
 #Preview {
-    CoinHeaderView(viewModel: CoinViewModel())
+    CoinHeaderView(viewModel: AppDependencies().makeCoinViewModel())
 }

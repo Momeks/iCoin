@@ -8,21 +8,22 @@
 import SwiftUI
 
 struct MarketChartListView<ViewModel: MarketChartProtocol>: View {
-    @StateObject var viewModel: ViewModel
-    
+    @ObservedObject var viewModel: ViewModel
+    var makeHistoricalDataViewModel: (Date) -> HistoricalDataViewModel
+
     var body: some View {
         VStack {
             switch viewModel.state {
             case .idle:
                 EmptyView()
-                
+
             case .loading:
                 MarketChartLoadingView()
-                
+
             case .success(let chartDataList):
                 ForEach(chartDataList) { data in
                     NavigationLink(destination: CoinDetailView(
-                        viewModel: HistoricalDataViewModel(date: data.date))
+                        viewModel: makeHistoricalDataViewModel(data.date))
                     ) {
                         HStack {
                             VStack(alignment: .leading) {
@@ -53,14 +54,15 @@ struct MarketChartListView<ViewModel: MarketChartProtocol>: View {
                 ErrorView(errorMessage: errorMessage)
             }
         }
-        .onReceive(NotificationCenter.default.publisher(for: .onRefreshData)) { _ in
-            viewModel.refreshData()
-        }
     }
 }
 
 #Preview {
-    ScrollView {
-        MarketChartListView(viewModel: MarketChartViewModel())
+    let deps = AppDependencies()
+    return ScrollView {
+        MarketChartListView(
+            viewModel: deps.makeMarketChartViewModel(),
+            makeHistoricalDataViewModel: deps.makeHistoricalDataViewModel
+        )
     }
 }

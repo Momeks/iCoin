@@ -23,27 +23,22 @@ class CoinViewModel: CoinViewModelProtocol {
         case success(CoinDTO)
         case failure(String)
     }
-    
+
     @Published private(set) var state: ViewState = .idle
-    private let networkService: NetworkService
-    private let endpointProvider: EndpointProvider
+    private let coinRepository: CoinRepositoryProtocol
     private let refreshPublisher: RefreshPublisher
-    
+
     private var currentTask: Task<Void, Never>?
     private var cancellables: Set<AnyCancellable> = []
-    
-    init(networkService: NetworkService = URLSessionNetworkService(),
-         endpointProvider: EndpointProvider = CoinGeckoEndpointProvider(),
-         refreshPublisher: RefreshPublisher = RefreshManager.shared) {
-        
-        self.networkService = networkService
-        self.endpointProvider = endpointProvider
+
+    init(coinRepository: CoinRepositoryProtocol, refreshPublisher: RefreshPublisher) {
+        self.coinRepository = coinRepository
         self.refreshPublisher = refreshPublisher
-        
+
         Task {
             await fetchCoinData()
         }
-        
+
         refreshPublisher.refresh
             .sink { [weak self] in
                 Task {
@@ -52,22 +47,21 @@ class CoinViewModel: CoinViewModelProtocol {
             }
             .store(in: &cancellables)
     }
-    
+
     @MainActor
     func fetchCoinData() async {
         cancelTask()
-        
+
         state = .loading
-        
-        let endpoint = endpointProvider.endpoint(for: .coin(id: AppConfigs.defaultCoin))
+
         currentTask = Task {
             do {
                 try Task.checkCancellation()
-                
-                let coin: Coin = try await networkService.fetch(from: endpoint)
-                
+
+                let coin = try await coinRepository.fetchCoin(id: AppConfigs.defaultCoin)
+
                 try Task.checkCancellation()
-                
+
                 state = .success(mapToViewData(from: coin))
             } catch is CancellationError {
                 return
@@ -78,14 +72,14 @@ class CoinViewModel: CoinViewModelProtocol {
             }
         }
     }
-    
+
     private func cancelTask() {
         currentTask?.cancel()
         currentTask = nil
     }
-    
+
     private func mapToViewData(from coin: Coin) -> CoinDTO {
-        return CoinDTO(
+        CoinDTO(
             name: coin.name,
             symbol: coin.symbol.uppercased(),
             imageUrl: URL(string: coin.image.large),
