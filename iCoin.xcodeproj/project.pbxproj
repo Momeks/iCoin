@@ -11,11 +11,27 @@
 		7BF7DC8E2F4F69FC00F4E246 /* CoinKit in Frameworks */ = {isa = PBXBuildFile; productRef = 7BF7DC8D2F4F69FC00F4E246 /* CoinKit */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		7BC875232F508730009EF578 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7BF7DBE22F4F32EB00F4E246 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 7BF7DBE92F4F32EB00F4E246;
+			remoteInfo = iCoin;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
+		7BC8751F2F508730009EF578 /* iCoinTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = iCoinTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7BF7DBEA2F4F32EB00F4E246 /* iCoin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iCoin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		7BC875202F508730009EF578 /* iCoinTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = iCoinTests;
+			sourceTree = "<group>";
+		};
 		7BF7DBEC2F4F32EB00F4E246 /* iCoin */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = iCoin;
@@ -24,6 +40,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		7BC8751C2F508730009EF578 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BF7DBE72F4F32EB00F4E246 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -40,6 +63,7 @@
 			isa = PBXGroup;
 			children = (
 				7BF7DBEC2F4F32EB00F4E246 /* iCoin */,
+				7BC875202F508730009EF578 /* iCoinTests */,
 				7BF7DBEB2F4F32EB00F4E246 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -48,6 +72,7 @@
 			isa = PBXGroup;
 			children = (
 				7BF7DBEA2F4F32EB00F4E246 /* iCoin.app */,
+				7BC8751F2F508730009EF578 /* iCoinTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -55,6 +80,29 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		7BC8751E2F508730009EF578 /* iCoinTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BC875252F508730009EF578 /* Build configuration list for PBXNativeTarget "iCoinTests" */;
+			buildPhases = (
+				7BC8751B2F508730009EF578 /* Sources */,
+				7BC8751C2F508730009EF578 /* Frameworks */,
+				7BC8751D2F508730009EF578 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				7BC875242F508730009EF578 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				7BC875202F508730009EF578 /* iCoinTests */,
+			);
+			name = iCoinTests;
+			packageProductDependencies = (
+			);
+			productName = iCoinTests;
+			productReference = 7BC8751F2F508730009EF578 /* iCoinTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		7BF7DBE92F4F32EB00F4E246 /* iCoin */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7BF7DBF52F4F32ED00F4E246 /* Build configuration list for PBXNativeTarget "iCoin" */;
@@ -89,6 +137,10 @@
 				LastSwiftUpdateCheck = 2620;
 				LastUpgradeCheck = 2620;
 				TargetAttributes = {
+					7BC8751E2F508730009EF578 = {
+						CreatedOnToolsVersion = 26.2;
+						TestTargetID = 7BF7DBE92F4F32EB00F4E246;
+					};
 					7BF7DBE92F4F32EB00F4E246 = {
 						CreatedOnToolsVersion = 26.2;
 					};
@@ -113,11 +165,19 @@
 			projectRoot = "";
 			targets = (
 				7BF7DBE92F4F32EB00F4E246 /* iCoin */,
+				7BC8751E2F508730009EF578 /* iCoinTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		7BC8751D2F508730009EF578 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BF7DBE82F4F32EB00F4E246 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -128,6 +188,13 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		7BC8751B2F508730009EF578 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		7BF7DBE62F4F32EB00F4E246 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -137,7 +204,57 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		7BC875242F508730009EF578 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 7BF7DBE92F4F32EB00F4E246 /* iCoin */;
+			targetProxy = 7BC875232F508730009EF578 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		7BC875262F508730009EF578 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S5AGZ2H5GG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Momeks.iCoinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iCoin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iCoin";
+			};
+			name = Debug;
+		};
+		7BC875272F508730009EF578 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = S5AGZ2H5GG;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = Momeks.iCoinTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRING_CATALOG_GENERATE_SYMBOLS = NO;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/iCoin.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/iCoin";
+			};
+			name = Release;
+		};
 		7BF7DBF32F4F32ED00F4E246 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -334,6 +451,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		7BC875252F508730009EF578 /* Build configuration list for PBXNativeTarget "iCoinTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7BC875262F508730009EF578 /* Debug */,
+				7BC875272F508730009EF578 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		7BF7DBE52F4F32EB00F4E246 /* Build configuration list for PBXProject "iCoin" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
