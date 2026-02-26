@@ -11,7 +11,7 @@ import SwiftUI
 struct iCoinApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(dependencies: AppDependencies())
         }
     }
 }
