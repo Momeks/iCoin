@@ -42,7 +42,7 @@ final class AppDependencies {
     }
 
     // MARK: - ViewModel factories
-
+    // Provides ready-to-use ViewModels with injected dependencies.
     func makeCoinViewModel() -> CoinViewModel {
         CoinViewModel(
             coinRepository: coinRepository,
